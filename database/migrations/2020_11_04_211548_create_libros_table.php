@@ -18,7 +18,7 @@ class CreateLibrosTable extends Migration
             $table->string('nombre', 100);
             $table->string('autor', 255)->default('anonimo');
             $table->string('editorial', 100);
-            $table->unsignedTinyInteger('edicion');
+            $table->unsignedSmallInteger('edicion');
             $table->year('anio');
             $table->unsignedSmallInteger('paginas');
             $table->timestamps();
