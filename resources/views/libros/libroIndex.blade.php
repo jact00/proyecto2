@@ -8,7 +8,7 @@
     <h1>Listado de Libros</h1>
     <a href="{{ route('libro.create') }}">Nuevo Libro</a>
     <hr>
-    <table class="table">
+    <table border="1">
         <tr>
             <th>ISBN</th>
             <th>Nombre</th>
@@ -20,7 +20,9 @@
         </tr>
         @foreach ($libros as $libro)
             <tr>
-                <td>{{ $libro->isbn }}</td>
+                <td>
+                    <a href="libro/{{$libro}}">{{ $libro->isbn }}</a>
+                </td>
                 <td>{{ $libro->nombre }}</td>
                 <td>{{ $libro->autor }}</td>
                 <td>{{ $libro->editorial }}</td>

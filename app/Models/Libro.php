@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Libro extends Model
 {
     use HasFactory;
+
+    protected $primaryKey = 'isbn';
+    protected $incrementing = false;
+    protected $keyType = 'string';
 }
