@@ -50,15 +50,11 @@ class LibroController extends Controller
         	'paginas' => 'required|digits_between:2,4',
         ]);
 
-        $libro = new Libro();
-        $libro->isbn = $request->isbn;
-        $libro->nombre = $request->nombre;
-        $libro->autor = $request->autor;
-        $libro->editorial = $request->editorial;
-        $libro->edicion = $request->edicion;
-        $libro->anio = $request->anio;
-        $libro->paginas = $request->paginas;
-        $libro->save();
+        if($request->autor === null)
+        	$libro = $request->except('autor');
+        else
+        	$libro = $request;
+        Libro::create($libro);
 
         return redirect()->route('libro.index');  
     }

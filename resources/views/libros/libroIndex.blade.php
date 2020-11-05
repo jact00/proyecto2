@@ -21,7 +21,7 @@
         @foreach ($libros as $libro)
             <tr>
                 <td>
-                    <a href="libro/{{$libro}}">{{ $libro->isbn }}</a>
+                    <a href="{{ route('libro.show', [$libro]) }}">{{ $libro->isbn }}</a>
                 </td>
                 <td>{{ $libro->nombre }}</td>
                 <td>{{ $libro->autor }}</td>
