@@ -1,36 +1,41 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Libros</title>
-</head>
-<body>
-    <h1>Listado de Libros</h1>
-    <a href="{{ route('libro.create') }}">Nuevo Libro</a>
-    <hr>
-    <table border="1">
-        <tr>
-            <th>ISBN</th>
-            <th>Nombre</th>
-            <th>Autor</th>
-            <th>Editorial</th>
-            <th>Edición</th>
-            <th>Año</th>
-            <th>Páginas</th>
+@extends('layouts.app')
+
+@section('contenido')
+
+<div class="page-header">
+    <br>
+    <h3> Lista de libros</h3>
+    <br>
+</div>
+
+<table class="table table-hover table-bordered">
+    <thead>
+        <tr class="table-primary">
+            <th scope="col">ISBN</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Autor</th>
+            <th scope="col">Editorial</th>
+            <th scope="col">Edición</th>
+            <th scope="col">Año</th>
+            <th scope="col">Páginas</th>
         </tr>
+    </thead>
+    <tbody>
         @foreach ($libros as $libro)
-            <tr>
-                <td>
-                    <a href="{{ route('libro.show', [$libro]) }}">{{ $libro->isbn }}</a>
-                </td>
-                <td>{{ $libro->nombre }}</td>
-                <td>{{ $libro->autor }}</td>
-                <td>{{ $libro->editorial }}</td>
-                <td>{{ $libro->edicion }}</td>
-                <td>{{ $libro->anio }}</td>
-                <td>{{ $libro->paginas }}</td>
-            </tr>
+        <tr class="table-secondary">
+            <th scope="row">
+                <a href="{{ route('libro.show', [$libro]) }}">{{ $libro->isbn }}</a>
+            </th>
+            <td>{{ $libro->nombre }}</td>
+            <td>{{ $libro->autor }}</td>
+            <td>{{ $libro->editorial }}</td>
+            <td>{{ $libro->edicion }}</td>
+            <td>{{ $libro->anio }}</td>
+            <td>{{ $libro->paginas }}</td>
+        </tr>
         @endforeach
-    </table>
-</body>
-</html>
+    </tbody>
+</table>
+
+
+@endsection 

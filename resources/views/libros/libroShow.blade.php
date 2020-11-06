@@ -1,27 +1,50 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Libros</title>
-</head>
-<body>
-    <a href="{{ route('libro.index') }}">Listado de Libros</a>
-    <a href="{{ route('libro.edit', [$libro]) }}">Editar Libro</a>
+@extends('layouts.app')
 
-    <form action="{{ route('libro.destroy', [$libro]) }}" method="POST">
+@section('contenido')
+
+<br>
+<h3>{{ $libro->isbn }} - {{ $libro->nombre }}</h3>
+<br>
+
+<div class ="row">
+    <div class="col-lg-6">
+        <table class="table table-hover table-bordered">
+            <thead>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row" class="table-primary">Autor:</th>
+                    <td class ="table-secondary">{{ $libro->autor }}</td>
+                </tr>
+                <tr>
+                     <th scope="row" class="table-primary">Editorial:</th>
+                    <td class ="table-secondary">{{ $libro->editorial }}</td>
+                </tr>
+                <tr>
+                    <th scope="row" class="table-primary">Edición:</th>
+                    <td class ="table-secondary">{{ $libro->edicion }}</td>
+                </tr>
+                <tr>
+                    <th scope="row" class="table-primary">Año:</th>
+                    <td class ="table-secondary">{{ $libro->anio }}</td>
+                </tr>
+                <tr>
+                    <th scope="row" class="table-primary">Páginas:</th>
+                    <td class ="table-secondary">{{ $libro->paginas }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<br>
+
+<div class="d-flex">
+    <a class="btn btn-primary" href="{{ route('libro.edit', [$libro]) }}" inline>Editar</a>
+    <form action="{{ route('libro.destroy', [$libro]) }}" method="POST" name="borrar">
         @method('DELETE')
         @csrf
-        <button type="submit">Eliminar</button>
+        <button type="submit" class="btn btn-danger">Eliminar</button>
     </form>
+</div>
 
-    <hr>
-    <h1>{{ $libro->isbn }} - {{ $libro->nombre }}</h1>
-    <ul>
-        <li>Autor: {{ $libro->autor }}</li>
-        <li>Editorial: {{ $libro->editorial }}</li>
-        <li>Edición: {{ $libro->edicion }}</li>
-        <li>Año: {{ $libro->anio }}</li>
-        <li>Páginas: {{ $libro->paginas }}</li>
-    </ul>
-</body>
-</html>
+@endsection
