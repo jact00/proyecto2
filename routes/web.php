@@ -19,3 +19,7 @@ Route::get('/', function () {
 });
 
 Route::resource('libro', LibroController::class);
+
+Route::get('/inicio', function() {
+	return view('inicio');
+});
