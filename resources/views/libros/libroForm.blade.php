@@ -5,11 +5,24 @@
     <title>Libros</title>
 </head>
 <body>
-    <h1>Agregar Libro</h1>
-    <form action="{{ route('libro.store') }}" method="POST">
+
+    @if(isset($libro))
+        <h1>Editar Libro</h1>
+        <form action="{{ route('libro.update', [$libro]) }}" method="POST">
+        @method('patch')
+    @else
+        <h1>Agregar Libro</h1>
+        <form action="{{ route('libro.store') }}" method="POST">
+    @endif
+
         @csrf
+    
         <label for="isbn">ISBN:</label>
+    @if(isset($libro))
+        <input type="number" name="isbn" value="{{ $libro->isbn }}" readonly>
+    @else
         <input type="number" name="isbn" value="{{ old('isbn') ?? '' }}">
+    @endif
         <br>
         @if($errors->has('isbn'))
             <ul>
@@ -20,7 +33,7 @@
         @endif
 
         <label for="nombre">Nombre:</label>
-        <input type="text" name="nombre" value="{{ old('nombre') ?? '' }}">
+        <input type="text" name="nombre" value="{{ old('nombre') ?? $libro->nombre ?? '' }}">
         <br>
         @if($errors->has('nombre'))
             <ul>
@@ -31,7 +44,7 @@
         @endif
 
         <label for="autor">Autor:</label>
-        <input type="text" name="autor" value="{{ old('autor') ?? '' }}">
+        <input type="text" name="autor" value="{{ old('autor') ?? $libro->autor ?? '' }}">
         <br>
         @if($errors->has('autor'))
             <ul>
@@ -42,7 +55,7 @@
         @endif
 
         <label for="editorial">Editorial:</label>
-        <input type="text" name="editorial" value="{{ old('editorial') ?? '' }}">
+        <input type="text" name="editorial" value="{{ old('editorial') ?? $libro->editorial ?? '' }}">
         <br>
         @if($errors->has('editorial'))
             <ul>
@@ -53,7 +66,7 @@
         @endif
 
         <label for="edicion">Edición:</label>
-        <input type="number" name="edicion" value="{{ old('edicion') ?? '' }}">
+        <input type="number" name="edicion" value="{{ old('edicion') ?? $libro->edicion ?? '' }}">
         <br>
         @if($errors->has('edicion'))
             <ul>
@@ -64,7 +77,7 @@
         @endif
 
         <label for="anio">Año:</label>
-        <input type="number" name="anio" value="{{ old('anio') ?? '' }}">
+        <input type="number" name="anio" value="{{ old('anio') ?? $libro->anio ?? '' }}">
         <br>
         @if($errors->has('anio'))
             <ul>
@@ -75,7 +88,7 @@
         @endif
 
         <label for="paginas">Páginas:</label>
-        <input type="number" name="paginas" value="{{ old('paginas') ?? '' }}">
+        <input type="number" name="paginas" value="{{ old('paginas') ??  $libro->paginas ?? '' }}">
         <br>
         @if($errors->has('paginas'))
             <ul>

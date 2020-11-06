@@ -78,7 +78,7 @@ class LibroController extends Controller
      */
     public function edit(Libro $libro)
     {
-        //
+        return view('libros/libroForm', compact('libro'));
     }
 
     /**
@@ -91,6 +91,25 @@ class LibroController extends Controller
     public function update(Request $request, Libro $libro)
     {
         //
+        $request->validate([
+        	'nombre' => 'required|max:100',
+        	'autor' => 'nullable|max:255',
+        	'editorial' => 'required|max:100',
+        	'edicion' => 'required|digits_between:1,4',
+        	'anio' => 'required|integer|min:1900|max:2020',
+        	'paginas' => 'required|digits_between:2,4',
+        ]);
+
+        $libro->nombre = $request->nombre;
+        $libro->autor = $request->autor ?? 'anonimo';
+        $libro->editorial = $request->editorial;
+        $libro->edicion = $request->edicion;
+        $libro->anio = $request->anio;
+        $libro->paginas = $request->paginas;
+
+        $libro->save();
+
+        return redirect()->route('libro.show', [$libro]);
     }
 
     /**

@@ -6,6 +6,7 @@
 </head>
 <body>
     <a href="{{ route('libro.index') }}">Listado de Libros</a>
+    <a href="{{ route('libro.edit', [$libro]) }}">Editar Libro</a>
     <hr>
     <h1>{{ $libro->isbn }} - {{ $libro->nombre }}</h1>
     <ul>
