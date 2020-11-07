@@ -20,7 +20,7 @@
                         <a class="nav-link" href="{{ route('libro.index') }}">Listado</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('libro.create') }}">Crear</a>
+                        <a class="nav-link" href="{{ route('libro.create') }}">Nuevo</a>
                     </li>
                 </ul>
             </div>

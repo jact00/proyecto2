@@ -1,104 +1,141 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Libros</title>
-</head>
-<body>
+@extends('layouts.app')
 
-    @if(isset($libro))
-        <h1>Editar Libro</h1>
+@section('contenido')
+
+<br>
+<div class="row">
+    <div class="col-lg-5">
+        @if(isset($libro))
         <form action="{{ route('libro.update', [$libro]) }}" method="POST">
-        @method('patch')
-    @else
-        <h1>Agregar Libro</h1>
+            <legend>Editar Libro</legend>
+            @method('patch')
+        @else
         <form action="{{ route('libro.store') }}" method="POST">
-    @endif
-
-        @csrf
-    
-        <label for="isbn">ISBN:</label>
-    @if(isset($libro))
-        <input type="number" name="isbn" value="{{ $libro->isbn }}" readonly>
-    @else
-        <input type="number" name="isbn" value="{{ old('isbn') ?? '' }}">
-    @endif
-        <br>
-        @if($errors->has('isbn'))
-            <ul>
-                @foreach($errors->get('isbn') as $message)
-                    <li>{{ $message }}</li>
-                @endforeach
-            </ul>
+            <legend>Nuevo Libro</legend>
         @endif
 
-        <label for="nombre">Nombre:</label>
-        <input type="text" name="nombre" value="{{ old('nombre') ?? $libro->nombre ?? '' }}">
-        <br>
-        @if($errors->has('nombre'))
-            <ul>
-                @foreach($errors->get('nombre') as $message)
-                    <li>{{ $message }}</li>
-                @endforeach
-            </ul>
-        @endif
+            @csrf
+            <fieldset>
+                <div class="form-group">
+                <label for="isbn">ISBN:</label>
+                @if($errors->has('isbn'))
+                    <input type="number" class="form-control is-invalid" name="isbn" value="{{ old('isbn') }}">
+                    <div class="invalid-feedback">
+                        <ul>
+                        @foreach($errors->get('isbn') as $message)
+                            <li>{{ $message }}</li>
+                        @endforeach
+                        </ul>
+                    </div>
+                @elseif(isset($libro))
+                    <input type="number" name="isbn" value="{{ $libro->isbn }}" readonly>
+                @else
+                    <input type="number" class="form-control" name="isbn" value="{{ old('isbn') ?? '' }}">
+                @endif
+                </div>
 
-        <label for="autor">Autor:</label>
-        <input type="text" name="autor" value="{{ old('autor') ?? $libro->autor ?? '' }}">
-        <br>
-        @if($errors->has('autor'))
-            <ul>
-                @foreach($errors->get('autor') as $message)
-                    <li>{{ $message }}</li>
-                @endforeach
-            </ul>
-        @endif
+                <div class="form-group">
+                <label for="nombre">Nombre:</label>
+                @if($errors->has('nombre'))
+                    <input type="text" class="form-control is-invalid" name="nombre" value="{{ old('nombre') }}">
+                    <div class="invalid-feedback">
+                        <ul>
+                        @foreach($errors->get('nombre') as $message)
+                            <li>{{ $message }}</li>
+                        @endforeach
+                        </ul>
+                    </div>
+                @else
+                    <input type="text" class="form-control" name="nombre" value="{{ old('nombre') ?? $libro->nombre ?? '' }}">
+                @endif
+                </div>
 
-        <label for="editorial">Editorial:</label>
-        <input type="text" name="editorial" value="{{ old('editorial') ?? $libro->editorial ?? '' }}">
-        <br>
-        @if($errors->has('editorial'))
-            <ul>
-                @foreach($errors->get('editorial') as $message)
-                    <li>{{ $message }}</li>
-                @endforeach
-            </ul>
-        @endif
+                <div class="form-group">
+                <label for="autor">Autor:</label>
+                @if($errors->has('autor'))
+                    <input type="text" class="form-control is-invalid" name="autor" value="{{ old('autor') }}">
+                    <div class="invalid-feedback">
+                        <ul>
+                        @foreach($errors->get('autor') as $message)
+                            <li>{{ $message }}</li>
+                        @endforeach
+                        </ul>
+                    </div>
+                @else
+                    <input type="text" class="form-control" name="autor" value="{{ old('autor') ?? $libro->autor ?? '' }}">
+                @endif
+                </div>
 
-        <label for="edicion">Edición:</label>
-        <input type="number" name="edicion" value="{{ old('edicion') ?? $libro->edicion ?? '' }}">
-        <br>
-        @if($errors->has('edicion'))
-            <ul>
-                @foreach($errors->get('edicion') as $message)
-                    <li>{{ $message }}</li>
-                @endforeach
-            </ul>
-        @endif
+                <div class="form-group">
+                <label for="editorial">Editorial:</label>
+                @if($errors->has('editorial'))
+                    <input type="text" class="form-control is-invalid" name="editorial" value="{{ old('editorial') }}">
+                    <div class="invalid-feedback">
+                        <ul>
+                        @foreach($errors->get('editorial') as $message)
+                            <li>{{ $message }}</li>
+                        @endforeach
+                        </ul>
+                    </div>
+                @else
+                    <input type="text" class="form-control" name="editorial" value="{{ old('editorial') ?? $libro->editorial ?? '' }}">
+                @endif
+                </div>
 
-        <label for="anio">Año:</label>
-        <input type="number" name="anio" value="{{ old('anio') ?? $libro->anio ?? '' }}">
-        <br>
-        @if($errors->has('anio'))
-            <ul>
-                @foreach($errors->get('anio') as $message)
-                    <li>{{ $message }}</li>
-                @endforeach
-            </ul>
-        @endif
+                <div class="form-group">
+                <label for="edicion">Edición:</label>
+                @if($errors->has('edicion'))
+                    <input type="number" class="form-control is-invalid" name="edicion" value="{{ old('edicion') }}">
+                    <div class="invalid-feedback">
+                        <ul>
+                        @foreach($errors->get('edicion') as $message)
+                            <li>{{ $message }}</li>
+                        @endforeach
+                        </ul>
+                    </div>
+                @else
+                    <input type="number" class="form-control" name="edicion" value="{{ old('edicion') ?? $libro->edicion ?? '' }}">
+                @endif
+                </div>
 
-        <label for="paginas">Páginas:</label>
-        <input type="number" name="paginas" value="{{ old('paginas') ??  $libro->paginas ?? '' }}">
-        <br>
-        @if($errors->has('paginas'))
-            <ul>
-                @foreach($errors->get('paginas') as $message)
-                    <li>{{ $message }}</li>
-                @endforeach
-            </ul>
-        @endif
+                <div class ="d-flex">
+                <div class="form-group">
+                <label for="anio">Año:</label>
+                @if($errors->has('anio'))
+                    <input type="number" class="form-control is-invalid" name="anio" value="{{ old('anio') }}">
+                    <div class="invalid-feedback">
+                        <ul>
+                        @foreach($errors->get('anio') as $message)
+                            <li>{{ $message }}</li>
+                        @endforeach
+                        </ul>
+                    </div>
+                @else
+                    <input type="number" class="form-control" name="anio" value="{{ old('anio') ?? $libro->anio ?? '' }}">
+                @endif
+                </div>
 
-        <button type="submit">Guardar</button>
-    </form>
-</body>
-</html>
+                <div class="form-group">
+                <label for="paginas">Páginas:</label>
+                @if($errors->has('anio'))
+                    <input type="number" class="form-control is-invalid" name="paginas" value="{{ old('paginas') }}">
+                    <div class="invalid-feedback">
+                        <ul>
+                        @foreach($errors->get('paginas') as $message)
+                            <li>{{ $message }}</li>
+                        @endforeach
+                        </ul>
+                    </div>
+                @else
+                    <input type="number" class="form-control" name="paginas" value="{{ old('paginas') ?? $libro->paginas ?? '' }}">
+                @endif
+                </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </fieldset>
+        </form>
+    </div>
+</div>
+
+@endsection
